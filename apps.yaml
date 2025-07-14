@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apps
+  namespace: argocd
+  labels:
+      type: platform
+spec:
+  project: default
+  sources:
+  - repoURL: https://github.com/MrHenryD/argo-apps-template/
+    path: apps
+    targetRevision: main
+    directory:
+      recurse: true
+  destination:
+    namespace: argocd
+    name: in-cluster  # TODO: see if this can change

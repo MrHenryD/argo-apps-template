@@ -1,0 +1,14 @@
+# Requires helm-diff
+# helm plugin install https://github.com/databus23/helm-diff
+repositories:
+ - name: argocd
+   url: https://argoproj.github.io/argo-helm
+
+releases:
+  - name: argocd
+    namespace: argocd
+    createNamespace: false
+    chart: argocd/argo-cd
+    version: 8.1.3
+    values:
+      - apps/templates/argocd/values.yaml

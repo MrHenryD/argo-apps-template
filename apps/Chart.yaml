@@ -1,0 +1,6 @@
+apiVersion: v2
+name: apps
+description: Template ArgoCD application for platform management
+type: application
+version: 0.1.0
+appVersion: 0.1.0
