@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   sources:
-  - repoURL: https://argoproj.github.io/argo-helm
-    chart: argo-cd
-    targetRevision: 8.1.2
+  - repoURL: https://grafana.github.io/helm-charts
+    chart: grafana
+    targetRevision: 9.2.10
     helm:
       valueFiles:
       - $values/apps/templates/grafana/values.yaml
