@@ -1,0 +1,22 @@
+alloy:
+  # option to embed configMap in the chart or use an external configMap
+  configMap:
+    # https://grafana.com/docs/alloy/latest/reference/components/local/
+    content: |-      
+      local.file_match "default" {
+        path_targets = [{
+          job = "my-app-logs",
+          "__path__" = "/var/log/app/*.log",
+        }]
+      }
+      
+      loki.source.file "default" {
+        targets    = local.file_match.default.targets
+        forward_to = [loki.write.endpoint.receiver]
+      }
+
+      loki.write "endpoint" {
+        endpoint {
+            url = "http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push"
+        }
+      }

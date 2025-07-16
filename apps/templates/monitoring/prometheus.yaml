@@ -1,0 +1,43 @@
+rbac:
+  create: true
+
+server:
+  global:
+    ## How frequently to scrape targets by default
+    scrape_interval: 1m
+    ## How long until a scrape request times out
+    scrape_timeout: 10s
+    ## How frequently to evaluate rules
+    evaluation_interval: 1m
+
+  ingress:
+    ## If true, Prometheus server Ingress will be created
+    enabled: false
+  
+  service:
+    ## If false, no Service will be created for the Prometheus server
+    ##
+    enabled: true
+
+  ## Prometheus data retention period (default if not specified is 15 days)
+  retention: "2d"
+
+## alertmanager sub-chart configurable values
+## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/alertmanager
+alertmanager:
+  enabled: true
+
+## kube-state-metrics sub-chart configurable values
+## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-state-metrics
+kube-state-metrics:
+  enabled: true
+
+## prometheus-node-exporter sub-chart configurable values
+## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-node-exporter
+prometheus-node-exporter:
+  enabled: true
+
+## prometheus-pushgateway sub-chart configurable values
+## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-pushgateway
+prometheus-pushgateway:
+  enabled: true

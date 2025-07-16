@@ -1,0 +1,69 @@
+# https://grafana.com/docs/loki/latest/setup/install/helm/install-monolithic/
+loki:
+  auth_enabled: false
+  commonConfig:
+    replication_factor: 1
+  schemaConfig:
+    configs:
+      - from: "2024-04-01"
+        store: tsdb
+        object_store: s3
+        schema: v13
+        index:
+          prefix: loki_index_
+          period: 24h
+  pattern_ingester:
+      enabled: true
+  limits_config:
+    allow_structured_metadata: true
+    volume_enabled: true
+  ruler:
+    enable_api: true
+
+# MinIO is an open-source, high-performance object storage server compatible with the Amazon S3 API, released under the AGPLv3 license 
+minio:
+  enabled: true
+
+# The chunks cache helps Loki serve log queries faster by caching log data chunks, especially useful in production or high-load environments
+chunksCache:
+  enabled: true
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+deploymentMode: SingleBinary
+
+singleBinary:
+  replicas: 1
+
+# Zero out replica counts of other deployment modes
+backend:
+  replicas: 0
+read:
+  replicas: 0
+write:
+  replicas: 0
+
+ingester:
+  replicas: 0
+querier:
+  replicas: 0
+queryFrontend:
+  replicas: 0
+queryScheduler:
+  replicas: 0
+distributor:
+  replicas: 0
+compactor:
+  replicas: 0
+indexGateway:
+  replicas: 0
+bloomCompactor:
+  replicas: 0
+bloomGateway:
+  replicas: 0
+  

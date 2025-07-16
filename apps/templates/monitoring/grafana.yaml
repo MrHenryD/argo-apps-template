@@ -1,0 +1,45 @@
+rbac:
+  create: true
+
+replicas: 1
+
+autoscaling:
+  enabled: false
+
+deploymentStrategy:
+  type: RollingUpdate
+
+## Expose the grafana service to be accessed from outside the cluster (LoadBalancer service).
+## or access it from within the cluster (ClusterIP service). Set the service type and the port to serve it.
+## ref: http://kubernetes.io/docs/user-guide/services/
+service:
+  enabled: true
+  type: ClusterIP
+
+serviceMonitor:
+  ## If true, a ServiceMonitor CR is created for a prometheus operator
+  enabled: false
+
+ingress:
+  enabled: false
+
+## Enable persistence using Persistent Volume Claims
+persistence:
+  type: pvc
+  enabled: false
+
+# Administrator credentials when not using an existing secret
+adminUser: admin
+adminPassword: password
+
+# Enable SMTP server configuration
+# http://docs.grafana.org/installation/configuration/#smtp
+smtp:
+  # `existingSecret` is a reference to an existing secret containing the smtp configuration
+  existingSecret: "grafana-smtp-secret"
+
+grafana.ini:
+  smtp:
+    enabled: true
+    host: "smtp.gmail.com:587"
+    from_name: "Grafana Alerts"
