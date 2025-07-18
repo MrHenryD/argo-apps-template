@@ -33,7 +33,7 @@ releases:
     version: 27.25.0
     values:
       # https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus/values.yaml
-      - apps/templates/monitoring/prometheus.yaml
+      - apps/templates/prometheus/values.yaml
   
   # Grafana: Dashboard for monitoring and visualizing metrics from Prometheus, Loki, and other data sources.
   # http://localhost:3000/a/grafana-lokiexplore-app/
@@ -44,7 +44,7 @@ releases:
     version: 9.2.10
     values:
       # https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
-      - apps/templates/monitoring/grafana.yaml
+      - apps/templates/grafana/values.yaml
   
   # Monolithic: Recommended when you are running Loki as part of a small meta monitoring stack.
   # Microservices: For workloads that require high availability and scalability. Loki is deployed in this mode internally at Grafana Labs.
@@ -61,7 +61,7 @@ releases:
       # Username: root-user
       # Password: supersecretpassword
         # kubectl -n monitoring get secret loki-minio -o jsonpath="{.data.rootPassword}" | base64 --decode
-      - apps/templates/monitoring/loki.yaml
+      - apps/templates/loki/values.yaml
 
   # Alloy is an open telemetry collector that provides a unified way to collect, process, and export telemetry data from your applications and infrastructure.
   # alloy convert --source-format=promtail --target-format=alloy --output=alloy.yaml promtail.yaml
@@ -72,4 +72,4 @@ releases:
     version: 1.1.2
     values:
       # https://raw.githubusercontent.com/grafana/alloy/main/operations/helm/charts/alloy/values.yaml
-      - apps/templates/monitoring/alloy.yaml
+      - apps/templates/alloy/values.yaml

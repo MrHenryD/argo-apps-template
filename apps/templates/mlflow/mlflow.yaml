@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mlflow
+  namespace: argocd
+  labels:
+      type: platform
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/MrHenryD/mlflow-deployment/
+    targetRevision: main
+    path: chart
+    helm:
+      values: |
+        image:
+          repository: mlflow
+          tag: 3.1.2
+        persistence:
+          enabled: true
+          existingClaim: mlflow-pvc
+  destination:
+    namespace: mlflow
+    name: in-cluster
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 3
+      backoff:
+        duration: 5s
+        maxDuration: 30s
+        factor: 2
+    syncOptions:
+    - CreateNamespace=false
